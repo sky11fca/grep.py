@@ -1,15 +1,18 @@
 import re, os
 
-def file_parse(pattern, filename):
+def file_parse(pattern, filename, FLAGS):
+
+    flags = re.IGNORECASE if FLAGS["-ignoreCase"] else 0
+
     try:
-        compiled_pattern = re.compile(pattern)
+        compiled_pattern = re.compile(pattern, flags)
     except re.error as e:
         print(e)
         return False
 
 
     try:
-        with open(filename, 'r', encoding='utf-8') as file:
+        with open(filename, 'r') as file:
             print(f"{filename}")
             for line_nr, line in enumerate(file, start=1):
                 line = line.rstrip("\n")
