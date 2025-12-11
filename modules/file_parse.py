@@ -13,11 +13,14 @@ def file_parse(pattern, filename, FLAGS):
 
     try:
         with open(filename, 'r') as file:
-            print(f"{filename}")
+            printed_filename = False
             for line_nr, line in enumerate(file, start=1):
                 line = line.rstrip("\n")
 
                 if compiled_pattern.search(line):
+                    if not printed_filename:
+                        print(f"{filename}")
+                        printed_filename = True
                     print(f"{line_nr}) {line}")
     except FileNotFoundError:
         print(f"File {filename} not found")

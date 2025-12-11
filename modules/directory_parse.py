@@ -1,7 +1,7 @@
 import os
 
 from modules.file_parse import file_parse
-def directory_parse(pattern, path, FLAGS):
+def directory_parse(pattern, path, flags):
     # If is a directory, will go to the next item
     # Else, will parse the file instead
 
@@ -17,8 +17,8 @@ def directory_parse(pattern, path, FLAGS):
             for file in files:
                 extension = os.path.splitext(file)[1]
                 if extension not in valid_extension: continue
-                file_parse(pattern, os.path.join(root, file, FLAGS))
+                file_parse(pattern, os.path.join(root, file), flags)
     else:
-        file_parse(pattern, path, FLAGS)
+        file_parse(pattern, path, flags)
 
     return True
