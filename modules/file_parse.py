@@ -9,6 +9,7 @@ def file_parse(pattern, filename, FLAGS):
     try:
         compiled_pattern = re.compile(pattern, flags)
     except re.error as e:
+        open("grep.log", "a").write(f"REGEX error for pattern '{pattern}' in file '{filename}'\n")
         print(e)
         return 0
 
@@ -40,12 +41,14 @@ def file_parse(pattern, filename, FLAGS):
         return match_output
 
     except FileNotFoundError:
+        open("grep.log", "a").write(f"File not found '{filename}'\n")
         print(f"File {filename} not found")
-        return False
+        return 0
     except IOError as e:
+        open("grep.log", "a").write(f"IO Exception over '{filename}'\n")
         print(e)
-        return False
+        return 0
     except UnicodeDecodeError as e:
+        open("grep.log", "a").write(f"Unicode Decode Exception: '{filename}' not decoded\n")
         print(f"Error decoding file {filename}: {e}")
-        return False
-    return True
+        return 0
