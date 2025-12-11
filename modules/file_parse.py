@@ -3,25 +3,42 @@ import re, os
 def file_parse(pattern, filename, FLAGS):
 
     flags = re.IGNORECASE if FLAGS["-ignoreCase"] else 0
+    invert_match = FLAGS["-not"]
+    count_mode = FLAGS["-count"]
 
     try:
         compiled_pattern = re.compile(pattern, flags)
     except re.error as e:
         print(e)
-        return False
+        return 0
 
 
     try:
+        match_output = 0
         with open(filename, 'r') as file:
             printed_filename = False
             for line_nr, line in enumerate(file, start=1):
                 line = line.rstrip("\n")
 
-                if compiled_pattern.search(line):
-                    if not printed_filename:
-                        print(f"{filename}")
-                        printed_filename = True
-                    print(f"{line_nr}) {line}")
+                is_match = compiled_pattern.search(line)
+                if invert_match:
+                    is_match = not is_match
+
+                if is_match:
+                    match_output += 1
+                    if not count_mode:
+                        if not printed_filename:
+                            print(f"{filename}")
+                            printed_filename = True
+
+                        if not invert_match:
+                            line = compiled_pattern.sub(f"\033[91m\g<0>\033[0m", line)
+                        print(f"{line_nr}) {line}")
+
+            if count_mode and match_output > 0:
+                print(f"file{filename} has {match_output}")
+        return match_output
+
     except FileNotFoundError:
         print(f"File {filename} not found")
         return False

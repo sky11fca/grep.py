@@ -12,13 +12,15 @@ def directory_parse(pattern, path, flags):
         '.bat', '.ps1', '.sql', '.rst', '.bib'
     }
 
+    total_count = 0
+
     if os.path.isdir(path):
         for root, dirs, files in os.walk(path):
             for file in files:
                 extension = os.path.splitext(file)[1]
                 if extension not in valid_extension: continue
-                file_parse(pattern, os.path.join(root, file), flags)
+                total_count += file_parse(pattern, os.path.join(root, file), flags)
     else:
-        file_parse(pattern, path, flags)
+        total_count += file_parse(pattern, path, flags)
 
-    return True
+    return total_count
