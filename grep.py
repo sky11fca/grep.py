@@ -14,7 +14,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    open("grep.log", "a").write(f"Execution started: '{args.pattern}', '{args.paths}'\n")
+    with open("grep.log", "a") as f:
+        f.write(f"Execution started: '{args.pattern}', '{args.paths}'\n")
 
     flags = {
         "-ignoreCase": args.ignoreCase,

@@ -18,7 +18,8 @@ def main(pattern, paths, flags):
     end_time = time.time()
     duration = end_time - start_time
 
-    open("grep.log", "a").write(f"Execution ended. Processed {len(paths)} in {duration:.4f} seconds. Found: {total_matches}\n")
+    with open("grep.log", "a") as f:
+        f.write(f"Execution ended. Processed {len(paths)} in {duration:.4f} seconds. Found: {total_matches}\n")
 
     sys.exit(0)
 

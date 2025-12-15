@@ -14,13 +14,31 @@ def directory_parse(pattern, path, flags):
 
     total_count = 0
 
-    if os.path.isdir(path):
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                extension = os.path.splitext(file)[1]
-                if extension not in valid_extension: continue
-                total_count += file_parse(pattern, os.path.join(root, file), flags)
-    else:
-        total_count += file_parse(pattern, path, flags)
+    if not os.path.exists(path):
+        with open("grep.log", "a") as f:
+            f.write(f"File or directory not found: '{path}'\n")
+        print(f"Invalid path: '{path}' (it doesn't exist)")
+        return 0
 
+    try:
+        if os.path.isdir(path):
+            for root, dirs, files in os.walk(path):
+                for file in files:
+                    extension = os.path.splitext(file)[1]
+                    if extension not in valid_extension: continue
+                    total_count += file_parse(pattern, os.path.join(root, file), flags)
+        else:
+            extension = os.path.splitext(path)[1]
+            if extension in valid_extension:
+                total_count += file_parse(pattern, path, flags)
+    except PermissionError as e:
+        with open("grep.log", "a") as f:
+            f.write(f"Permission denied: '{path}'\n")
+        print(f"Permission denied: '{path}': {e}")
+        return 0
+
+    except OSError as e:
+        with open("grep.log", "a") as f:
+            f.write(f"OS error: '{path}'\n")
+        print(f"OS error: '{path}': {e}")
     return total_count
