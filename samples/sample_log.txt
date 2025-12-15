@@ -1,0 +1,7 @@
+[2024-01-15 08:30:15] INFO: Server started successfully
+[2024-01-15 08:31:22] ERROR: Database connection failed
+[2024-01-15 08:32:45] WARN: High memory usage detected
+[2024-01-15 08:33:10] INFO: User 'admin' logged in
+[2024-01-15 08:35:55] ERROR: File not found: /var/www/index.html
+[2024-01-15 08:40:20] DEBUG: Processing request ID 12345
+[2024-01-15 08:45:30] INFO: Backup completed

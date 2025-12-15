@@ -1,0 +1,6 @@
+The quick brown fox jumps over the lazy dog.
+Foxes are quick and brown.
+DOG is man's best friend.
+The dog chased the fox.
+Quick, quick, quick!
+The end.
