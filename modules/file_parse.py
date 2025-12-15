@@ -42,7 +42,7 @@ def file_parse(pattern, filename, FLAGS):
                         print(f"{line_nr}) {line}")
 
             if count_mode and match_output > 0:
-                print(f"file{filename} has {match_output}")
+                print(f"file {filename} has {match_output} number of instances")
 
         end_time = time.time()
         with open("grep.log", "a") as f:

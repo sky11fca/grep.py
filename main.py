@@ -13,7 +13,7 @@ def main(pattern, paths, flags):
         total_matches += matches
 
     if flags["-count"]:
-        print(f"Total Matches{total_matches}")
+        print(f"Total Matches: {total_matches}")
 
     end_time = time.time()
     duration = end_time - start_time
